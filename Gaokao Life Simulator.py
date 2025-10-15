@@ -117,4 +117,43 @@ def scene_start():
 
 def scene_morning():
     slow_print("Scene 1: Monday Morning", color=Fore.CYAN)
+    slow_print("Your alarm rings at 5:30 a.m. The sky outside is still dark.", color=Fore.BLUE)
+    c = choice("What do you do?", [
+        "Get up and study right away.",
+        "Sleep another 30 minutes.",
+        "Write in your journal for a few minutes."
+    ])
+    if c == 1: player.update({"knowledge": player["knowledge"]+5, "energy": player["energy"]-10})
+    elif c == 2: player.update({"energy": player["energy"]+5, "knowledge": player["knowledge"]-5, "mental": player["mental"]-5})
+    else: player.update({"mental": player["mental"]+5, "energy": player["energy"]-5})
+    show_stats()
+    player["scene"] = "classroom"
+    save_game()
+    scene_classroom()
+    
+def scene_classroom():
+    slow_print("\nScene 2 :Classroom Pressure", color=Fore.RED)
+    slow_print("Your math teacher slams your test paper on your desk: 62/100.", color=Fore.RED)
+    c = choice("Your reaction:", [
+        "Promise to do better and start extra math drills.",
+        "Confide in your friend Mei about how you feel.",
+        "Ignore it and doodle in your notebook."
+    ])
+    if c == 1: player.update({"knowledge": player["knowledge"]+10, "mental": player["mental"]-10})
+    elif c == 2: player.update({"mental": player["mental"]+10, "knowledge": player["knowledge"]-5, "mei": player["mei"]+10})
+    else: player.update({"mental": player["mental"]+5, "knowledge": player["knowledge"]-5, "energy": player["energy"]-5})
+    show_stats()
+    save_game()
+    events_week()
+    player["scene"] = "rival challenge"
+    scene_rival_challenge()
+
+def scene_rival_challenge():
+    slow_print("\nScene 3: Rival Challenge", color=Fore.MAGENTA)
+    slow_print("Chen Hao, your top rival, smirks at you.", color=Fore.MAGENTA)
+    c= choice("How do you respond?", [
+        "Challenge him -aim to surpass him.",
+        "Stay focused on your own path.",
+        "Ask him to study together, and maybe learn something."
+    ])
     
